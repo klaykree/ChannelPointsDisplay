@@ -1,0 +1,5 @@
+<Settings>
+    <ChannelName>YourChannelName</ChannelName>
+    <Redemption Type='IMG'>Show Random Image</Redemption>
+    <Redemption Type='GIF'>Show Random GIF</Redemption>
+</Settings>
