@@ -38,7 +38,6 @@
             // ImageBox
             // 
             this.ImageBox.BackColor = System.Drawing.Color.Magenta;
-            this.ImageBox.Image = ((System.Drawing.Image)(resources.GetObject("ImageBox.Image")));
             this.ImageBox.Location = new System.Drawing.Point(0, 0);
             this.ImageBox.Margin = new System.Windows.Forms.Padding(0);
             this.ImageBox.Name = "ImageBox";
@@ -57,6 +56,7 @@
             this.VideoBox.OcxState = ((System.Windows.Forms.AxHost.State)(resources.GetObject("VideoBox.OcxState")));
             this.VideoBox.Size = new System.Drawing.Size(923, 647);
             this.VideoBox.TabIndex = 2;
+            this.VideoBox.Visible = false;
             // 
             // ChannelPointsDisplay
             // 

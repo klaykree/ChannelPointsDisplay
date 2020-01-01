@@ -5,8 +5,6 @@ using System.Collections.ObjectModel;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.Remote;
-using OpenQA.Selenium.Support.UI;
-using SeleniumExtras.WaitHelpers;
 using System.Xml;
 using System.IO;
 using System.Drawing;
@@ -28,11 +26,6 @@ namespace ChannelPointsDisplay
 		public ChannelPointsDisplay()
 		{
 			InitializeComponent();
-
-			VideoBox.Hide();
-
-			//SetStyle(ControlStyles.SupportsTransparentBackColor, true);
-			//BackColor = Color.Transparent;
 
 			LoadSettings();
 
@@ -91,7 +84,7 @@ namespace ChannelPointsDisplay
 			//NewContent.Add("redeemed highlight my message\r\n100\r\justinfan56: highlight test");
 			//NewContent.Add("redeemed video request\r\n100\r\njustinfan56: video test");
 			//NewContent.Add("justinfan56 redeemed test\r\n100");
-			NewContent.Add("justinfan56 redeemed show random image\r\n100");
+			//NewContent.Add("justinfan56 redeemed show random image\r\n100");
 
 			for(int i = 0 ; i < NewContent.Count ; ++i)
 			{
@@ -228,33 +221,26 @@ namespace ChannelPointsDisplay
 				ImageBox.Image = Image.FromFile(RandomImage);
 				ImageToTopLeft();
 			}
-
-			/*string[] Images = Directory.GetFiles("images");
-			Random Rand = new Random();
-			string RandomImageFile = Images[Rand.Next(0, Images.Length)];
-			ImageBox.Image = Image.FromFile(RandomImageFile);
-
-			ImageToTopLeft();*/
 		}
 
 		private void DisplayRandomGIF()
 		{
-			string[] Images = Directory.GetFiles("gifs");
-			Random Rand = new Random();
-			string RandomImageFile = Images[Rand.Next(0, Images.Length)];
-			ImageBox.Image = Image.FromFile(RandomImageFile);
-
-			ImageToTopLeft();
+			string RandomGIF = GetRandomFileFromFolder("gifs");
+			if(File.Exists(RandomGIF))
+			{
+				ImageBox.Image = Image.FromFile(RandomGIF);
+				ImageToTopLeft();
+			}
 		}
 
 		private void DisplayRandomVideo()
 		{
-			string[] Images = Directory.GetFiles("videos");
-			Random Rand = new Random();
-			string RandomVideoFile = Images[Rand.Next(0, Images.Length)];
-
-			VideoBox.URL = RandomVideoFile;
-			VideoBox.uiMode = "none";
+			string RandomVideo = GetRandomFileFromFolder("videos");
+			if(File.Exists(RandomVideo))
+			{
+				VideoBox.URL = RandomVideo;
+				VideoBox.uiMode = "none";
+			}
 		}
 
 		private void ImageToTopLeft()
@@ -262,7 +248,6 @@ namespace ChannelPointsDisplay
 			//Reset position and size
 			ImageBox.Location = new Point(0, 0);
 			ImageBox.Dock = DockStyle.Fill;
-			ImageBox.Update();
 			Size NewSize = ImageBox.Size;
 			ImageBox.Dock = DockStyle.None;
 			ImageBox.Size = NewSize;
@@ -270,7 +255,6 @@ namespace ChannelPointsDisplay
 			Size ImageSize = ImageBox.Image.Size;
 			float ImageRatio = (float)ImageSize.Width / ImageSize.Height;
 			float ImageBoxRatio = (float)ImageBox.Size.Width / ImageBox.Size.Height;
-			float DesiredHeight = ImageBox.Size.Width / ImageRatio;
 			
 			if(ImageRatio > ImageBoxRatio)
 			{
@@ -300,9 +284,10 @@ namespace ChannelPointsDisplay
 			}
 		}
 
+		//For testing
 		private void ImageBox_MouseDown(object sender, MouseEventArgs e)
 		{
-			DisplayRandomImage();
+			//DisplayRandomImage();
 			//DisplayRandomGIF();
 		}
 	}
